@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Test Suite">
+    <test name="Application Test" preserve-order="true">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            <class name="com.letskodeit.testclasses.LoginTests"></class>
+            <!--<class name="com.letskodeit.testclasses.AllCoursesTests"></class>-->
+        </classes>
+    </test>
+</suite>

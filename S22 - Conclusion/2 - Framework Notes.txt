@@ -1,0 +1,323 @@
+------------ Cons of No Framework ------------
+
+1. It is too long
+2. It has redundant code
+3. It is not very readable
+4. It is using  WebDriver APIs in the test methods
+
+Simon Stewart -> If you have WebDriver APIs in your test methods, you are doing it wrong
+
+
+Solution:
+1. LoginPage Class and AlCoursesPage Class
+2. Implement all the functionality in the Page Classes
+3. Implicit to point 2
+4. Move all driver actions outside of the test class
+
+Asserts should be there in the test methods
+
+
+------------ What Should a Page Object contains? ------------
+
+Create Page Objects not just for Pages, rather for significant common elements
+
+A page is defined by:
+	URL
+	Title
+	Elements included in the page
+	Actions a user can perform on the page
+
+Components:
+	Variables
+		URLs and Title
+		Element Locators (username, password)
+		driver variable (to interact with the page)
+
+	Methods:
+		open()
+		searchCourses() -> AllCoursesPage
+		signInWith() -> LoginPage
+
+------------ Real Test Scenario ------------
+
+Summary: Search for a course and verify results is not zero
+Steps:
+	1. Open Let's Kode It	2. Login to application
+	3. Search for a course
+		3.1 Type keyword in the search box
+Expected Result:
+	1. Searched course should display on the page
+		1.1 Get the results elements list, size should be > 0
+	2. Verify the page URL
+
+
+If the step is click() -> method does not return anything
+If the step provides some information -> method should return this information
+
+searchCourse(courseName) -> Methods can take arguments
+
+This scenario has three Components:
+1. Test Class
+2. LoginPage
+3. AllCourses
+
+------------ Understanding Test Class ------------
+
+
+				    --------------
+				    | Test Class |
+				    --------------
+					/	\
+				    /		  \
+				  /		    \
+		-----------------		    ---------------
+		| Test Fixtures |		    | Test Methods|
+		-----------------		    ---------------
+		     /    \                        /  \
+		    /	     \        		   /    \
+		   /		\			  /	   \
+	----------	   ------------    ----------     ----------
+	| setUp |	   | tearDown |	 | test1 |	   | test2 |
+	----------	   ------------    ----------     ----------
+
+Test Class:
+	It may contain multiple test methods
+		A test method can represent a test case
+
+	A test method needs an environment to be executed like browser instance or any other common code		This code goes in setUp() method -> @BeforeClass and @BeforeMethod
+	After test is complete, we may need to clean up the environment like closing the browser instance
+		This code goes in tearDown() method -> @AfterClass and @AfterMethod
+
+
+ 
+------------ Writing Test Method ------------
+
+Here are few things to consider when writing a test method:
+
+1. It should be as close as possible to the test case
+2. It should be easy to understand
+3. It should not have any actions within itself as much as possible
+4. All the actions should be called from page classes
+5. All the assertions should be in the test method
+
+
+------------ Exercise ------------
+
+1. Create a AllCoursesPage Class
+2. Create a SearchBarPage Class
+3. Create a ResultsPage Class
+
+Driver initialization and clean up is happening in setup and teardown method
+
+
+
+------------ Custom Driver ------------
+
+It helps us with logging
+It helps us with exception handling
+It helps us with modification/customization of default Selenium WebDriver methods. Example: sendData
+
+---------- WebDriver Factory ----------
+
+1. Singleton Design Pattern
+	One instance of the class exist at a time
+2. Factory Design Pattern
+	Declare separate method for creating an object
+
+
+---------- CheckPoint Class ----------
+
+test1 -> verify account image
+	verify header
+
+test2 -> verify header
+	 verify url
+
+1. Run through complete test method
+2. Check all the assertions
+3. If there is even a single failure, then mark the test method as failed
+4. If all the assertions are successful, then mark the test method as successful
+
+
+
+------------- Constants -------------
+
+1. Minimum points of modification of constant values
+2. One point of reference to update all constant values
+
+
+--------- Data Driven Testing ---------
+
+1. We will store data in Excel file
+2. Then we will be reading the data from Excel file and passing it to the test method
+3. We will use TestNG's Data Provider annotation to pass the data to the test method
+4. And this feature of TestNG will help to run the test method multiple times
+
+Example:
+If we have 2 data sets, then the test method will be executed 2 times
+
+Dependencies Needed:
+Search on mvnrepository.com
+1. xmlbeans
+2. poi
+3. poi-examples
+4. poi-excelant
+5. poi-ooxml
+6. poi-ooxml-schemas
+7. poi-scratchpad
+8. commons-io
+
+<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
+<dependency>
+<groupId>org.apache.xmlbeans</groupId>
+<artifactId>xmlbeans</artifactId>
+<version>2.6.0</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi</artifactId>
+<version>3.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-examples -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi-examples</artifactId>
+<version>3.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-excelant -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi-excelant</artifactId>
+<version>3.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi-ooxml</artifactId>
+<version>3.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi-ooxml-schemas</artifactId>
+<version>3.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
+<dependency>
+<groupId>org.apache.poi</groupId>
+<artifactId>poi-scratchpad</artifactId>
+<version>3.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+<groupId>commons-io</groupId>
+<artifactId>commons-io</artifactId>
+<version>2.6</version>
+</dependency>
+
+
+
+--------- Adding Logs ---------
+
+
+<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-api</artifactId>
+	<version>2.11.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-core</artifactId>
+	<version>2.11.0</version>
+</dependency>
+
+
+Five main type of log statements
+
+trace
+debug
+info
+error
+fatal
+
+log.error -> Conditions like element not found or not clicked
+log.debug/log.info -> On Selenium WebDriver actions like click(), sendKeys()
+log.info -> On successful actions like page load, other verifications
+
+
+Log4j2.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="basePath">./logs</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="File" fileName="${basePath}/app.log" filePattern="${basePath}/app-%d{yyyy-MM-dd-HHmmss}.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c{2} -%msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100 KB"/>
+            </Policies>
+        </RollingFile>
+        <Console name="Console">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c{1} -%msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="File"/>
+        </Root>
+        <Logger name="com.letskodeit.overview" level="info" additivity="false">
+            <AppenderRef ref="File"/>
+        </Logger>
+    </Loggers>
+</Configuration>
+
+
+
+--------- Reporting ---------
+
+Why Reporting?
+Status to:
+	Upper Management
+	Development Team
+	Product/Project Management
+
+Representation of automation efforts outside of the team
+
+
+What goes in reports?
+1. High level status of Automation Run
+2. Should clearly represent the Test Suite/Test Class
+3. Name of Test Classes, Test Methods
+4. Status of Test Methods (Success/Failed)
+5. No need to put exception messages/other details of debugging
+
+
+<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>4.0.9</version>
+</dependency>
+
+
+
+
+
+
+
+
+
+
