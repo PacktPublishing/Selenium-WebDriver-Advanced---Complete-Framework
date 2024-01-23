@@ -255,10 +255,6 @@ log.debug/log.info -> On Selenium WebDriver actions like click(), sendKeys()
 log.info -> On successful actions like page load, other verifications
 
 
-
-
-
-
 Log4j2.xml
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -289,6 +285,32 @@ Log4j2.xml
 </Configuration>
 
 
+
+--------- Reporting ---------
+
+Why Reporting?
+Status to:
+	Upper Management
+	Development Team
+	Product/Project Management
+
+Representation of automation efforts outside of the team
+
+
+What goes in reports?
+1. High level status of Automation Run
+2. Should clearly represent the Test Suite/Test Class
+3. Name of Test Classes, Test Methods
+4. Status of Test Methods (Success/Failed)
+5. No need to put exception messages/other details of debugging
+
+
+<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>4.0.9</version>
+</dependency>
 
 
 
