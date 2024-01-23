@@ -1,5 +1,5 @@
 
 
 
-# Selenium-WebDriver-Advanced---Industry-Standard-Framework
-Selenium WebDriver Advanced - Industry Standard Framework, by Packt Publishing
+# Selenium WebDriver Advanced - Complete Framework
+Selenium WebDriver Advanced - Complete Framework, by Packt Publishing
